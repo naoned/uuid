@@ -1,16 +1,16 @@
-Puzzle Uuid  ![PHP >= 7.1](https://img.shields.io/badge/php-%3E%3D%207.1-blue.svg)
-===========
+Puzzle Uuid  ![PHP >= 5.6](https://img.shields.io/badge/php-%3E%3D%205.6-blue.svg)
+=========== 
 
-Assertions for PHPUnit 
+Branch 1.x is for PHP 5.6 users
 
 QA
 --
 
 Service | Result
 --- | ---
-**Travis CI** (PHP 7.1) | [![Build Status](https://travis-ci.org/puzzle-org/uuid.svg?branch=master)](https://travis-ci.org/puzzle-org/uuid)
-**Scrutinizer** | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/puzzle-org/uuid/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/puzzle-org/uuid/?branch=master)
-**Code coverage** | [![codecov](https://codecov.io/gh/puzzle-org/uuid/branch/master/graph/badge.svg)](https://codecov.io/gh/puzzle-org/uuid)
+**Travis CI** (PHP 5.6) | [![Build Status](https://travis-ci.org/puzzle-org/uuid.svg?branch=php56)](https://travis-ci.org/puzzle-org/uuid)
+**Scrutinizer** | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/puzzle-org/uuid/badges/quality-score.png?b=php56)](https://scrutinizer-ci.com/g/puzzle-org/uuid/?branch=php56)
+**Code coverage** | [![codecov](https://codecov.io/gh/puzzle-org/uuid/branch/php56/graph/badge.svg)](https://codecov.io/gh/puzzle-org/uuid)
 **Packagist** | [![Latest Stable Version](https://poser.pugx.org/puzzle/uuid/v/stable.png)](https://packagist.org/packages/puzzle/uuid) [![Total Downloads](https://poser.pugx.org/puzzle/uuid/downloads.svg)](https://packagist.org/packages/puzzle/uuid)
 
 
@@ -46,7 +46,7 @@ class Pony
 {
     private $id;
 
-    public function __construct(?PonyId $id = null)
+    public function __construct(PonyId $id = null)
     {
         if($id === null)
         {
