@@ -1,18 +1,12 @@
 #------------------------------------------------------------------------------
 # Composer
 #------------------------------------------------------------------------------
-COMPOSER_ARGS=
-ifeq (composer, $(firstword $(MAKECMDGOALS)))
-    ifneq (,$(filter install update,$(CLI_ARGS)))
-        COMPOSER_ARGS=--ignore-platform-reqs
-    endif
-endif
 
 composer: composer.phar
-	php composer.phar $(CLI_ARGS) $(COMPOSER_ARGS)
+	php composer.phar $(CLI_ARGS)
 
 composer-install: composer.phar ## Install dependencies
-	php composer.phar install --ignore-platform-reqs
+	php composer.phar install
 
 composer.phar:
 	curl -sS https://getcomposer.org/installer | php

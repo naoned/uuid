@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace Puzzle\ValueObjects;
 
 use Puzzle\Pieces\ConvertibleToString;
@@ -11,7 +9,7 @@ class SelfValidatedUuid implements ConvertibleToString, \JsonSerializable
     private
         $uuid;
 
-    public function __construct(?string $uuid = null)
+    public function __construct($uuid = null)
     {
         if($uuid === null)
         {
@@ -25,23 +23,28 @@ class SelfValidatedUuid implements ConvertibleToString, \JsonSerializable
         $this->uuid = $uuid;
     }
 
-    public function value(): string
+    public function value()
     {
         return $this->uuid;
     }
 
-    public function equals(SelfValidatedUuid $uuid): bool
+    public function equals(SelfValidatedUuid $uuid)
     {
         return $this->uuid === $uuid->value();
     }
 
-    public function __toString(): string
+    public function __toString()
     {
         return $this->uuid;
     }
 
-    private function validateUuid(string $string): void
+    private function validateUuid($string)
     {
+        if(! is_string($string))
+        {
+            throw new Exceptions\InvalidUuid($string);
+        }
+
         $validator = \Symfony\Component\Validator\Validation::createValidator();
 
         $errors = $validator->validate(
