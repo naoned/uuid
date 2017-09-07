@@ -59,4 +59,32 @@ class SelfValidatedUuidTest extends TestCase
     {
         new Uuid('oui');
     }
+
+    /**
+     * @dataProvider providerTestEquals
+     */
+    public function testEquals(bool $expected, ?string $id1, ?string $id2)
+    {
+        $uuid1 = new Uuid($id1);
+        $uuid2 = new Uuid($id2);
+
+        $this->assertSame($expected, $uuid1->equals($uuid2));
+    }
+
+    public function providerTestEquals()
+    {
+        return [
+            [false, null, null],
+            [false, null, '1163c8e7-4a15-452a-8026-88bdc6e12a80'],
+            [false, '1163c8e7-4a15-452a-8026-88bdc6e12a80', null],
+            [false, '1163c8e7-4a15-452a-8026-88bdc6e12a80', '8c804f96-5e81-491c-9543-dca9212a76af'],
+            [true, '1163c8e7-4a15-452a-8026-88bdc6e12a80', '1163c8e7-4a15-452a-8026-88bdc6e12a80'],
+        ];
+    }
+
+    public function testJsonSerialize()
+    {
+        $uuid = new Uuid();
+        $this->assertSame($uuid->value(), $uuid->jsonSerialize());
+    }
 }
