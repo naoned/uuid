@@ -1,7 +1,7 @@
 Puzzle Uuid  ![PHP >= 7.1](https://img.shields.io/badge/php-%3E%3D%207.1-blue.svg)
 ===========
 
-Assertions for PHPUnit 
+PHP 5.6 users, please use 1.x branch.
 
 QA
 --
@@ -65,4 +65,4 @@ class Pony
 Changelog
 ---------
 
-No BC breaks yet
+2.0.0 : Drop PHP 5.6 support
