@@ -49,7 +49,7 @@ class SelfValidatedUuid implements ConvertibleToString, \JsonSerializable
             new \Symfony\Component\Validator\Constraints\Uuid()
         );
 
-        if (count($errors) > 0)
+        if (count($errors) > 0 || $string === '')
         {
             throw new Exceptions\InvalidUuid($string);
         }

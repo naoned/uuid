@@ -54,10 +54,22 @@ class SelfValidatedUuidTest extends TestCase
 
     /**
      * @expectedException \Puzzle\ValueObjects\Exceptions\InvalidUuid
+     * @dataProvider providerTestInvalidUuid
      */
-    public function testInvalidUuid()
+    public function testInvalidUuid(string $uuid)
     {
-        new Uuid('oui');
+        new Uuid($uuid);
+    }
+
+    public function providerTestInvalidUuid()
+    {
+        return [
+            'empty' => [''],
+            'blank' => ['   '],
+            'random string' => ['pony'],
+            'illegal char' => ['e41157f8-9555-486e-a4f4-4890392224ay'],
+            'too short' => ['e41157f8-9555-486e-a4f4-48'],
+        ];
     }
 
     /**
