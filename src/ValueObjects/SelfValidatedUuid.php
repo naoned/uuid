@@ -8,7 +8,7 @@ use Puzzle\Pieces\ConvertibleToString;
 
 class SelfValidatedUuid implements ConvertibleToString, \JsonSerializable
 {
-    private
+    private string
         $uuid;
 
     public function __construct(?string $uuid = null)
@@ -55,7 +55,7 @@ class SelfValidatedUuid implements ConvertibleToString, \JsonSerializable
         }
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return $this->value();
     }

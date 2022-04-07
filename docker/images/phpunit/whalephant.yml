@@ -1,6 +1,6 @@
 name: puzzle-uuid
 php:
-    version: 7.1
+    version: 8.1
 extensions:
     - xdebug
 ini:

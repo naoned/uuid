@@ -5,28 +5,29 @@ declare(strict_types = 1);
 namespace Puzzle\ValueObjects;
 
 use PHPUnit\Framework\TestCase;
+use Puzzle\ValueObjects\Exceptions\InvalidUuid;
 
 class SelfValidatedUuidTest extends TestCase
 {
-    public function testCompareNewUuid()
+    public function testCompareNewUuid(): void
     {
         $uuid1 = new Uuid();
         $uuid2 = new Uuid();
 
-        $this->assertFalse($uuid1 == $uuid2);
+        $this->assertFalse($uuid1->equals($uuid2));
     }
 
-    public function testCompareSameUuid()
+    public function testCompareSameUuid(): void
     {
         $uuidValue = (string) \Ramsey\Uuid\Uuid::uuid4();
 
         $uuid1 = new Uuid($uuidValue);
         $uuid2 = new Uuid($uuidValue);
 
-        $this->assertTrue($uuid1 == $uuid2);
+        $this->assertTrue($uuid1->equals($uuid2));
     }
 
-    public function testCompareDifferentUuid()
+    public function testCompareDifferentUuid(): void
     {
         $uuidValue1 = (string) \Ramsey\Uuid\Uuid::uuid4();
         $uuidValue2 = (string) \Ramsey\Uuid\Uuid::uuid4();
@@ -34,34 +35,34 @@ class SelfValidatedUuidTest extends TestCase
         $uuid1 = new Uuid($uuidValue1);
         $uuid2 = new Uuid($uuidValue2);
 
-        $this->assertFalse($uuid1 == $uuid2);
+        $this->assertFalse($uuid1->equals($uuid2));
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $uuid1 = new Uuid();
         $uuid2 = new Uuid((string) $uuid1);
 
-        $this->assertTrue($uuid1 == $uuid2);
+        $this->assertTrue($uuid1->equals($uuid2));
     }
 
     public function testValue()
     {
-        $uuid1 = new Uuid();
+        $uuid1 = new Uuid('0e53559b-7149-43a4-8666-f9802d759580');
 
-        $this->assertInternalType('string', $uuid1->value());
+        $this->assertSame('0e53559b-7149-43a4-8666-f9802d759580', $uuid1->value());
     }
 
     /**
-     * @expectedException \Puzzle\ValueObjects\Exceptions\InvalidUuid
      * @dataProvider providerTestInvalidUuid
      */
-    public function testInvalidUuid(string $uuid)
+    public function testInvalidUuid(string $uuid): void
     {
+        $this->expectException(InvalidUuid::class);
         new Uuid($uuid);
     }
 
-    public function providerTestInvalidUuid()
+    public function providerTestInvalidUuid(): array
     {
         return [
             'empty' => [''],
@@ -75,7 +76,7 @@ class SelfValidatedUuidTest extends TestCase
     /**
      * @dataProvider providerTestEquals
      */
-    public function testEquals(bool $expected, ?string $id1, ?string $id2)
+    public function testEquals(bool $expected, ?string $id1, ?string $id2): void
     {
         $uuid1 = new Uuid($id1);
         $uuid2 = new Uuid($id2);
@@ -83,7 +84,7 @@ class SelfValidatedUuidTest extends TestCase
         $this->assertSame($expected, $uuid1->equals($uuid2));
     }
 
-    public function providerTestEquals()
+    public function providerTestEquals(): array
     {
         return [
             [false, null, null],
@@ -94,7 +95,7 @@ class SelfValidatedUuidTest extends TestCase
         ];
     }
 
-    public function testJsonSerialize()
+    public function testJsonSerialize(): void
     {
         $uuid = new Uuid();
         $this->assertSame($uuid->value(), $uuid->jsonSerialize());
